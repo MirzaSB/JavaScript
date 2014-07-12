@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p id="do"></p>
+    <script>
+        do {
+            var name = prompt("Who are you?");
+        }
+        while(! name) {
+            console.log(name);
+            document.getElementById("do").innerHTML = "I am " + name;
+        }
+    </script>
+</body>
+</html>
