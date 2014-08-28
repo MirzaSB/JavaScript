@@ -1,24 +1,24 @@
 /**
- * When we looked up all the people in our data set that lived more than ninety years, only the very latest generation in the data came out. Let’s take a closer look at that phenomenon.
+    * Using the example data set from this chapter, compute the average age difference between mothers and children
+    * (the age of the mother when the child is born). You can use the average function defined earlier in this chapter.
 
- Compute and output the average age of the people in the ancestry data set per century. A person is assigned to a century by taking their year of death, dividing it by a hundred,
- and rounding it up, as in Math.ceil(person.died / 100).
+    Note that not all the mothers mentioned in the data are themselves present in the array. The byName object,
+    which makes it easy to find a person’s object from their name, might be useful here.
 
- function average(array) {
-  function plus(a, b) { return a + b; }
-  return array.reduce(plus) / array.length;
-}
+    function average(array) {
+    function plus(a, b) { return a + b; }
+    return array.reduce(plus) / array.length;
+    }
 
- // Your code here.
+    var byName = {};
+    ancestry.forEach(function(person) {
+    byName[person.name] = person;
+    });
 
- // → 16: 43.5
- //   17: 51.2
- //   18: 52.8
- //   19: 54.8
- //   20: 84.7
- //   21: 94
- */
+    // Your code here.
 
+    // → 31.2
+*/
 var ancestry = [
     {"name": "Carolus Haverbeke", "sex": "m", "born": 1832, "died": 1905, "father": "Carel Haverbeke", "mother": "Maria van Brussel"},
     {"name": "Emma de Milliano", "sex": "f", "born": 1876, "died": 1956, "father": "Petrus de Milliano", "mother": "Sophia van Damme"},
@@ -61,39 +61,28 @@ var ancestry = [
     {"name": "Jacobus Bernardus van Brussel", "sex": "m", "born": 1736, "died": 1809, "father": "Jan van Brussel", "mother": "Elisabeth Haverbeke"}
 ];
 
-function groupBy(arr, testFunction) {
-    //Initialize an object.
-    var groups = {};
-    //Create a for each loop that goes through all elements in the array...
-    arr.forEach(function(centuryOrYear) {
-        //Initalize a potential group name.
-        var name = testFunction(centuryOrYear);
-        //If the group already exists in the groups.....
-        if (name in groups)
-            //Push the age to the appropriate group.
-            groups[name].push(centuryOrYear);
-        else
-            groups[name] = [centuryOrYear];
-    });
-    return groups;
-}
-
-//Create groups by century using the above function.
-var groupByCentury = groupBy(ancestry, function(person) {
-    return Math.ceil(person.died / 100);
+//Build up an object that associates names with people.
+var byName = {};
+ancestry.forEach(function(person) {
+    byName[person.name] = person;
 });
 
-//Function that calculates averages.
+//Create a custom function that stores the people whose mothers are already in the ancestry array.
+var hasKnownMother = ancestry.filter(function (person) {
+    return byName[person.mother] != null;
+});
+
+//Calculate the age difference between the mother and child, and then store them in an array.
+//This is done by transforming the previous mothers array into a map, and then systematically storing the age difference
+//between mother and child.
+var ageDiffBetweenMotherAndChild = hasKnownMother.map(function (person) {
+    return person.born - byName[person.mother].born;
+});
+
+//Calculate the average age difference between mothers and children. Round the final value to 1 decimal place.
 function average(array) {
-    function plus(a, b) { return a + b; }
+    function plus(a,b) { return a + b;}
     return array.reduce(plus) / array.length;
 }
 
-//Write out all the averages of ages per century.
-for (var num in groupByCentury) {
-    var allAges = groupByCentury[num].map(function(person) {
-        return person.died - person. born;
-    });
-
-    console.log(num + " : " + average(allAges).toFixed(1));
-}
+console.log(average(ageDiffBetweenMotherAndChild).toFixed(1));
