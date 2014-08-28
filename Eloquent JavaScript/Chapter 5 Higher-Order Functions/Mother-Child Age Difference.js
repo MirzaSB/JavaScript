@@ -25,7 +25,6 @@ var ANCESTRY_FILE = require('./ancestry.js');
 //Convert the imported data to JSON.
 var ancestry = JSON.parse(ANCESTRY_FILE);
 
-
 //Function to calculate the average value of an array.
 function average(array) {
     function plus(a, b) { return a + b; }
