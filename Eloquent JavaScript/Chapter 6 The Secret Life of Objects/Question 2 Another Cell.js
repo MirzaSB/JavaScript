@@ -75,9 +75,11 @@ StretchCell.prototype.draw = function(width, height) {
 
 //Create a new StretchCell.
 var sc = new StretchCell(new TextCell("abc"), 1, 2);
+console.log("Input: " + "(new TextCell('abc'), 1, 2);");
 //Execute the first test vector.
-console.log(sc.minWidth());
+console.log("minWidth: " + sc.minWidth());
 //Execute the second test vector.
-console.log(sc.minHeight());
+console.log("minHeight: " +  sc.minHeight());
 //Execute the third test vector.
+console.log("draw:");
 console.log(sc.draw(3, 2));

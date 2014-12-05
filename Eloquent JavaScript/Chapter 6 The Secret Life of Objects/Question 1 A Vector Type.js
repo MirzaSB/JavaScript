@@ -38,7 +38,12 @@ Object.defineProperty(Vector.prototype, "length", {
 });
 
 //Execute test vectors.
+console.log("Input: " + "new Vector(1, 2).plus(new Vector(2, 3)))");
 console.log(new Vector(1, 2).plus(new Vector(2, 3)));
+console.log();
+console.log("Input: " + "new Vector(1, 2).minus(new Vector(2, 3))");
 console.log(new Vector(1, 2).minus(new Vector(2, 3)));
+console.log();
+console.log("Input: " + "new Vector(3, 4).length");
 console.log(new Vector(3, 4).length);
 
