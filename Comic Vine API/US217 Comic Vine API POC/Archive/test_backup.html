@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+
+<body>
+    <script>
+    function isBlank(str) {
+        return (!str || /^\s*$/.test(str));
+    }
+
+    $(document).ready(function() {
+        $("form").submit(function() {
+            //var url1 = "http://www.comicvine.com/api/characters/?api_key=4c7c9cb23677feec2ef4430bf887246a3059c4e1&filter=name:" + $("#name").val() + "&format=jsonp&limit=1&json_callback=?";
+
+            var url1 = createComicVineCharacterSearchRequestURL($("#name").val());
+            alert(url1);
+
+            $.ajax({
+                url: url1,
+                dataType: 'jsonp',
+                success: function(result) {
+                    if (isBlank(result)) {
+                        alert("blank");
+                    }
+                    console.log(result);
+                    console.log(result.results[0].real_name);
+                    var formattedResult = "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
+                    console.log(formattedResult);
+                    $("#response_json").html(formattedResult);
+                },
+                error: function(data, data2) {
+                    console.log("Response Text: " + data.responseText);
+                    var errorResponse = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+                    $("#response_json").html(errorResponse);
+                }
+            });
+
+        });
+    });
+
+    function get_API_KEY() {
+        return "4c7c9cb23677feec2ef4430bf887246a3059c4e1";
+    }
+
+    function get_API_KEY_arg() {
+        return "api_key=" + get_API_KEY();
+    }
+
+    function getComicVineDomain() {
+        return "http://www.comicvine.com/api";
+    }
+
+    function getComicVineAPIResourcePath(resourceName) {
+        return getComicVineDomain() + "/" + resourceName + "/?";
+    }
+
+    function createComicVineCharacterSearchRequestURL(characterName) {
+        return getComicVineAPIResourcePath("characters") + get_API_KEY_arg() + "&filter=name:" + characterName + "&format=jsonp&limit=1&json_callback=?";
+    }
+
+    </script>
+</body>
+
+<h2>US217 POC</h2>
+<div class="request">
+    <h3>REQUEST</h3>
+    <div class="main">
+        <form action="#" method="get" name="form_name" id="form_id" class="form_class">
+            <label>Enter character name :</label>
+            <input type="text" name="name" id="name" />
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+</div>
+<div class="response">
+    <h3>RESPONSE</h3>
+    <div id="response_json"></div>
+</div>
+
+</html>
