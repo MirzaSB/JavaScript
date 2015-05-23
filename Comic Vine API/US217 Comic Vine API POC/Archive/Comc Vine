@@ -1,0 +1,5 @@
+http://www.comicvine.com/api/characters/?api_key=4c7c9cb23677feec2ef4430bf887246a3059c4e1
+
+http://www.comicvine.com/api/characters/?api_key=4c7c9cb23677feec2ef4430bf887246a3059c4e1&filter=name:deadpool
+
+http://www.comicvine.com/api/characters/?api_key=4c7c9cb23677feec2ef4430bf887246a3059c4e1&filter=name:deadpool&format=json&limit=1
