@@ -20,29 +20,12 @@
  */
 
 var size = 8;
-
 var str = "";
 
-for(var i = 0; i < size; i++) {
-
-    if(i != 0) {
-        str = str + "\n";
-    }
-
-    for(var j = 0; j < size; j++) {
-
-       if((i+j) % 2 == 0) {
-           str += "#";
-       }
-        else {
-           str+= " ";
-       }
-
-    }
-
+for (var i = 0; i < size; i++) {
+  for (var j = 0; j < size; j++) {
+  	str += (i + j) % 2 == 0 ? "#" : " ";
+  }
+  str = str + "\n";
 }
-
 console.log(str);
-
-
-
